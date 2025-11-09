@@ -1,47 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lusaka Peoples's Choice Awards</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lusaka People's Choice Awards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: gold;
+      background-color: #0f172a; /* dark navy */
+      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       text-align: center;
     }
-    h1 {
-      font-size: 2.5rem;
+
+    .logo {
+      width: 120px;
+      height: 120px;
       animation: pulse 2s infinite;
     }
+
     @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
     }
-    p {
-      font-size: 1.2rem;
-      color: #ccc;
+
+    .loading-text {
+      font-size: 1.25rem;
+      margin-top: 20px;
+      color: #facc15;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.5; }
+    }
+
+    .status {
+      margin-top: 20px;
+      color: #9ca3af;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Lusaka People's Choice Awards 🏆</h1>
-  <p>Loading the experience... please wait</p>
+  <img src="logo.png" alt="Lusaka People's Choice Awards" class="logo" />
+  <h1 class="text-2xl font-bold mt-6">Lusaka People's Choice Awards</h1>
+  <p class="loading-text">Loading site...</p>
+  <p class="status" id="status">Warming up servers, please wait...</p>
 
   <script>
-    // Redirect after 10 seconds
-    setTimeout(() => {
-      window.location.href = "https://lusaka-awards.onrender.com";
-    }, 10000);
+    const RENDER_URL = "https://lusaka-awards.onrender.com/ping"; // Adjust if your health check route is different
+    const MAIN_URL = "https://lusaka-awards.onrender.com";
+    const statusText = document.getElementById("status");
+
+    async function checkServer() {
+      try {
+        const response = await fetch(RENDER_URL, { method: "GET", mode: "cors" });
+        if (response.ok) {
+          statusText.textContent = "Site is ready! Redirecting...";
+          setTimeout(() => {
+            window.location.href = MAIN_URL;
+          }, 1000);
+        } else {
+          statusText.textContent = "Still waking up... please wait.";
+          setTimeout(checkServer, 3000);
+        }
+      } catch (error) {
+        statusText.textContent = "Connecting to server...";
+        setTimeout(checkServer, 3000);
+      }
+    }
+
+    checkServer();
   </script>
 </body>
 </html>
