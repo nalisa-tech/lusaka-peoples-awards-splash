@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lusaka Peoples's Choice Awards</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: gold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Lusaka People's Choice Awards 🏆</h1>
+  <p>Loading the experience... please wait</p>
+
+  <script>
+    // Redirect after 10 seconds
+    setTimeout(() => {
+      window.location.href = "https://lusaka-awards.onrender.com";
+    }, 10000);
+  </script>
+</body>
+</html>
